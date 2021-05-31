@@ -19,6 +19,15 @@ Route::get('/', function ()
     return view('pages.index');
 });
 
+Route::get('/immobporto', function () 
+{
+    return view('pages.index');
+});
+
+
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+
+Route::resource('user', 'App\Http\Controllers\UserController');

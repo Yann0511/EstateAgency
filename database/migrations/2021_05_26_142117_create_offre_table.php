@@ -14,7 +14,10 @@ class CreateOffreTable extends Migration
     public function up()
     {
         Schema::create('offre', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->bigInteger('propriete_id');
+            $table->foreign('propriete_id')->references('id')->on('proprietes');
+            $table->string('type');
             $table->timestamps();
         });
     }

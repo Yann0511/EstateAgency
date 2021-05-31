@@ -6,7 +6,9 @@
 	<meta name="description" content="Agence immobilière pour louer ou acheter une maison" />
 	<meta name="keywords" content="agence immobilière, acheter maison, louer chambre, Porto-Novo, agence, annonce immobilièere" />
 	<meta name="Yann OLOU" content="Agence immobilière" />
-    
+	 <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+	
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="shortcut icon" href="favicon.ico">
 

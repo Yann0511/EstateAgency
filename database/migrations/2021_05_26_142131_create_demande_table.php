@@ -15,6 +15,10 @@ class CreateDemandeTable extends Migration
     {
         Schema::create('demande', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('type')->nullable();
+            $table->string('description');
             $table->timestamps();
         });
     }

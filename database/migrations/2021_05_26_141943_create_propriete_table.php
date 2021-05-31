@@ -13,8 +13,20 @@ class CreateProprieteTable extends Migration
      */
     public function up()
     {
-        Schema::create('propriete', function (Blueprint $table) {
-            $table->id();
+        Schema::create('proprietes', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name', 50);
+            $table->string('adresse', 100);
+            $table->string('description', 500);
+            $table->integer('prix');
+            $table->integer('superficie');
+            $table->integer('chambre');
+            $table->integer('douche');
+            $table->integer('garage');
+            $table->bigInteger('user_id');
+            $table->foreign('user_id')
+                                      ->references('id')
+                                      ->on('users');
             $table->timestamps();
         });
     }
@@ -26,6 +38,6 @@ class CreateProprieteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('propriete');
+        Schema::dropIfExists('proprietes');
     }
 }
