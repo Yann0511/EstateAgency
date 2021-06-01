@@ -17,7 +17,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#">Show User</a>
+            <a class="navbar-brand" href="{{ url('usermanagement') }}">Show Proprety</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -70,41 +70,27 @@
           <div class="col-md-8">
             <div class="card">
               <div class="card-header">
-                <h5 class="title">Profil</h5>
+                <h5 class="title">Proprety</h5>
               </div>
               <div class="card-body">
-             
-               
-                {!! Form::model($user, ['route'=>['user.update', $user], 'method'=>'put']) !!}
+                <form>
                   <div class="row">
-                    <div class="col-md-6 pr-1">
+                    <div class="col-md-5 pr-1">
                       <div class="form-group">
-                        <label>Role</label>
-                        <select type="text" class="form-control" id="role" name="role" >
-                          <option selected>Agent</option>
-                          <option>Client</option>
-                        </select>
+                        <label>Titre</label>
+                        <input type="text" class="form-control"  placeholder="Titre" name = "Titre" value="{{ $propriete->name }}" readonly="readonly">
                       </div>
                     </div>
-                    <div class="col-md-6 pl-1">
+                    <div class="col-md-3 px-1">
                       <div class="form-group">
-                        <label for="exampleInputEmail1">Adresse email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email"  value="{{ $user->email }}">
+                        <label for="exampleInputEmail1">Superficie(en metre carré)</label>
+                        <input type="number" class="form-control" placeholder="Superficie"  name = "Superficie" readonly = "readonly" value="{{ $propriete->superficie }} ">
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
-                  <div class="col-md-6 pl-1">
+                    <div class="col-md-4 pl-1">
                       <div class="form-group">
-                        <label>Nom</label>
-                        <input type="text" id="surname" name="surname" class="form-control" placeholder="Nom" value="{{ $user->surname }}" >
-                      </div>
-                    </div>
-                    
-                    <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label>Prénom</label>
-                        <input type="text" id="name" name="name" class="form-control" placeholder="Prénom" value="{{ $user->name }}">
+                        <label>Prix(en fcfa)</label>
+                        <input type="number" name="Prix" class="form-control" placeholder="Prix" value="{{ $propriete->prix }}" readonly = "readonly">
                       </div>
                     </div>
                   </div>
@@ -112,26 +98,39 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Adresse</label>
-                        <input type="text" id="adresse" name="adresse" class="form-control" placeholder="Home Address" value="{{ $user->adresse }}" >
+                        <input type="text" class="form-control" placeholder="Home Address" value="{{ $propriete->adresse }}" name="Adresse" readonly = "readonly">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 pr-1">
+                      <div class="form-group">
+                        <label>Chambre</label>
+                        <input type="number" class="form-control" placeholder="Chambre" value="{{ $propriete->chambre}}" name="Chambre" readonly = "readonly">
+                      </div>
+                    </div>
+                    <div class="col-md-4 px-1">
+                      <div class="form-group">
+                        <label>Douche</label>
+                        <input type="number" class="form-control" placeholder="Douche" name="Douche" value="{{ $propriete->douche }}" readonly = "readonly">
+                      </div>
+                    </div>
+                    <div class="col-md-4 pl-1">
+                      <div class="form-group">
+                        <label>Garage</label>
+                        <input type="number" class="form-control" placeholder="Garage" name="Garage" readonly = "readonly" value="{{ $propriete->garage }}">
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>A propos</label>
-                        <textarea rows="4" cols="80" id="about" name="about" class="form-control" placeholder="Here can be your description" value="Mike">{{ $user->about }}</textarea>
+                        <label>Description</label>
+                        <textarea rows="4" cols="80" class="form-control" placeholder="Here can be your description" value=" {{ $propriete->about }}"></textarea>
                       </div>
                     </div>
                   </div>
-                   <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Modifier
-                                </button>
-                            </div>
-                   </div>
-                {!! Form::close() !!}
+                </form>
               </div>
             </div>
           </div>
@@ -143,13 +142,13 @@
               <div class="card-body">
                 <div class="author">
                   <a href="#">
-                    <img class="avatar border-gray" src="{{ $user->photo}}" alt="...">
-                    <h5 class="title">{{ $user->name}} {{$user->surname}}</h5>
+                    <img class="avatar border-gray" src="{{ $propriete->user->photo}}" alt="...">
+                    <h5 class="title">{{ $propriete->user->name}} {{$propriete->user->surname}}</h5>
                   </a>
                   
                 </div>
                 <p class="description text-center">
-                  {{ $user->about}}
+                  {{ $propriete->user->about}}
                 </p>
               </div>
               <hr>
@@ -164,20 +163,6 @@
                   <i class="fab fa-google-plus-g"></i>
                 </button>
               </div>
-               <form action="{{ route('update_avatar') }}" method="POST" role="form" enctype="multipart/form-data">
-                 @csrf
-                 <div class="form-group row">
-                    <label for="profile_image" class="col-md-4 col-form-label text-md-right">Profile Image</label>
-                        <div class="col-md-6">
-                            <input id="profile_image" type="file" class="form-control" name="avatar">
-                        </div>
-                  </div>
-                  <div class="form-group row mb-0 mt-5">
-                    <div class="col-md-8 offset-md-4">
-                      <button type="submit" class="btn btn-primary">Update Avatar</button>
-                    </div>
-                  </div>
-                </form>
             </div>
           </div>
         </div>

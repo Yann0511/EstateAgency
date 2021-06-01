@@ -19,6 +19,7 @@ class CreateDemandeTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('type')->nullable();
             $table->string('description');
+            $table->integer('etat');
             $table->timestamps();
         });
     }

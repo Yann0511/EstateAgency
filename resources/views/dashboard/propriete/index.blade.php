@@ -17,7 +17,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#">Dashboard</a>
+            <a class="navbar-brand" href="#">My Property</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -62,64 +62,22 @@
         </div>
       </nav>
       <!-- End Navbar -->
-
-      <div class="panel-header panel-header-lg">
-        <canvas id="bigDashboardChart"></canvas>
+      
+      <div class="panel-header panel-header-sm">
       </div>
-      <div class="content">
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="card card-chart">
+       <div class="content">
+                      <div class="row">
+      <div class="col-md-12">
+            <div class="card card-plain">
               <div class="card-header">
-                <h5 class="card-category">Annonce</h5>
-                <h4 class="card-title">Demande</h4>
-              </div>
-              <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="lineChartExample"></canvas>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="stats">
-                  <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-category">Annonce</h5>
-                <h4 class="card-title">Offre</h4>
-              </div>
-              <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="lineChartExampleWithNumbersAndGrid"></canvas>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="stats">
-                  <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header">
-                <h5 class="card-category">Administration</h5>
-                <h4 class="card-title">Property Management</h4>
+                <h4 class="card-title"> Liste de tout mes propriétés</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
                       <th>
-                        Nom
-                      </th>
-                      
-                      <th>
-                        Prénom
+                        id
                       </th>
                       <th>
                         Titre
@@ -128,52 +86,52 @@
                         Adresse
                       </th>
                       <th>
-                        Voir
+                        Prix
+                      </th>
+                      <th>
+                        Voir/Modifer
                       </th>
                       <th class="text-right">
                         Supprimer
                       </th>
                     </thead>
                     <tbody>
-                        @foreach ($proprietes as $propriete)
-                        
+                        @foreach($proprietes as $p)
                       <tr>
                         <td>
-                          {{ $propriete->user->surname }}
+                          {{$p->id}}
                         </td>
                         <td>
-                          {{ $propriete->user->name }}
+                          {{ $p->name }}
                         </td>
                         <td>
-                          {{ $propriete->name }}
-                        </td>
-                       <td>
-                          {{ $propriete->adresse}}
+                          {{ $p->adresse }}
                         </td>
                         <td>
-                            <a href="{{route('propriete.show', [$propriete->id])}}">
-                              <i class="now-ui-icons users_single-02"></i>
+                          {{ $p->prix }}
+                        </td>
+                        <td>
+                            <a href="{{route('propriete.edit', [$p->id])}}">
+                              <i class="now-ui-icons arrows-1_refresh-69"></i>
                             </a>
                         </td>
                         <td class="text-right">
                               <i class="now-ui-icons ui-1_simple-remove"></i>
-                              {!! Form::open(['method'=>'DELETE', 'route'=>['propriete.destroy', $propriete->id]]) !!}
-                              {!! Form::submit('', ['class'=> 'now-ui-icons ui-1_simple-remove', 'onclick'=> 'return confirm(\'Vraiment supprimer cette propriété?\')']) !!}
+                              {!! Form::open(['method'=>'DELETE', 'route'=>['propriete.destroy', $p->id]]) !!}
+                              {!! Form::submit('', ['class'=> 'now-ui-icons ui-1_simple-remove', 'onclick'=> 'return confirm(\'Vraiment supprimer cette propriete?\')']) !!}
                               {!! Form::close() !!}
                         </td>
                       </tr>
-                      @endforeach
+                    @endforeach
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
-            <div>
-              {!! $links !!}
-            </div>
           </div>
+          {!! $links !!}
         </div>
-      </div>
+        </div>
       @include('dashboard.includes.footer')
       @include('dashboard.includes.script')
     </body>

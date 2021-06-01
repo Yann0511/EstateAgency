@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Propriete extends Model
 {
@@ -17,6 +18,11 @@ class Propriete extends Model
     public function images()
     {
         return $this->hasMany('App\Models\Image', 'propriete_id');
+    }
+
+    public function offre()
+    {
+        return DB::table('offres')->where('$this->id', 'propriete_id')->and('etat', 1)->count('*');
     }
 
 }

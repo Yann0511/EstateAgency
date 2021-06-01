@@ -46,27 +46,33 @@
           <li>
             <a href="{{ route('user.edit', [Auth::user()->id]) }}">
               <i class="now-ui-icons users_single-02"></i>
-              <p>User Profile</p>
+              <p>My Profile</p>
             </a>
           </li>
         
         @elseif(Auth::user()->role == "Agent")
+                 <li>
+            <a href="{{ route('propriete.index') }}">
+              <i class="now-ui-icons travel_istanbul"></i>
+              <p>My Property</p>
+            </a>
+          </li>
                 <li>
                     <a href="#">
                         <i class="now-ui-icons business_bank"></i>
-                        <p>Bid Management</p>
+                        <p>My Bid </p>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <i class="now-ui-icons shopping_box"></i>
-                        <p>Ask Management</p>
+                        <p>My Ask </p>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <i class="now-ui-icons users_single-02"></i>
-                        <p>User Profile</p>
+                        <p>My Profile</p>
                     </a>
                 </li>
           
@@ -74,13 +80,13 @@
                 <li>
                     <a href="#">
                         <i class="now-ui-icons shopping_box"></i>
-                        <p>Ask Management</p>
+                        <p>My Ask </p>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <i class="now-ui-icons users_single-02"></i>
-                        <p>User Profile</p>
+                        <p>My Profile</p>
                     </a>
                 </li>
           @endif

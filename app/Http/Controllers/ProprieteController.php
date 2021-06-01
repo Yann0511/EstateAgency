@@ -6,6 +6,7 @@ use App\Repositories\ProprieteRepository;
 use App\Http\Requests\ProprieteRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProprieteController extends Controller
 {
@@ -24,10 +25,15 @@ class ProprieteController extends Controller
      */
     public function index()
     {
-        $proprietes = DB::table('proprietes')->groupBy('user_id')->Paginate($this->nbrPerPage);
-		$links = $proprietes->links('pagination::bootstrap-4');
+     
+		$user = Auth::user();
+        $id = $user->id;
 
-		return view('dashboard.propriete.liste', compact('proprietes', 'links'));
+        $proprietes = DB::table('proprietes')->where('user_id', $id)->Paginate($this->nbrPerPage);
+		$links = $proprietes->links('pagination::bootstrap-4');
+        
+
+		return view('dashboard.propriete.index',  compact('user', 'proprietes', 'links'));
     }
 
     /**
@@ -61,7 +67,9 @@ class ProprieteController extends Controller
      */
     public function show($id)
     {
-        //
+        $propriete = $this->proprieteRepository->getById($id);
+
+		return view('dashboard.propriete.show',  compact('propriete'));
     }
 
     /**
@@ -97,6 +105,6 @@ class ProprieteController extends Controller
     {
         $this->proprieteRepository->destroy($id);
 
-        return redirect()->back;
+        return redirect()->back();
     }
 }

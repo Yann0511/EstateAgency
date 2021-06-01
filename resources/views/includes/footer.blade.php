@@ -9,12 +9,12 @@
 						<div class="col-md-3 col-md-push-1">
 							<h3 class="section-title">Links</h3>
 							<ul>
-								<li><a href="#">Home</a></li>
-								<li><a href="#">Properties</a></li>
-								<li><a href="#">Agent</a></li>
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">API</a></li>
-								<li><a href="#">FAQ / Contact</a></li>
+								<li><a href="#">Accuiel</a></li>
+								<li><a href="#">Annonces</a></li>
+								<li><a href="#">Nos Agents</a></li>
+								<li><a href="#">Se connecter</a></li>
+								<li><a href="#">S'inscrire</a></li>
+								
 							</ul>
 						</div>
 

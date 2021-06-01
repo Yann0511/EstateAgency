@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use App\Repositories\ProprieteRepository;
@@ -28,6 +29,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
+      
         $proprietes = $this->proprieteRepository->getPagination($this->nbrPerPage);
         $links = $proprietes->links('pagination::bootstrap-4');
 

@@ -6,7 +6,7 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 
 use App\Repositories\UserRepository;
-
+use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
@@ -31,6 +31,7 @@ class UserController extends Controller
 
 	public function index()
 	{
+
 		$users = DB::table('users')->orderBy('id','asc')->where([['role', '!=', 'Admin']])->Paginate($this->nbrPerPage);
 		$links = $users->links('pagination::bootstrap-4');
 
@@ -44,6 +45,11 @@ class UserController extends Controller
 
 	public function store(Request $request)
 	{
+		if(Auth::user()->role != "Admin")
+        {
+            return redirect()->route('user.edit', [Auth::user()->id]);
+        }
+		
 		$this->validator($request->all());
 		$user = $this->userRepository->store($request->all());
 
@@ -75,6 +81,11 @@ class UserController extends Controller
 
 	public function destroy($id)
 	{
+		if(Auth::user()->role != "Admin")
+        {
+            return redirect()->route('user.edit', [Auth::user()->id]);
+        }
+		
 		$this->userRepository->destroy($id);
 
 		return redirect()->back();

@@ -18,6 +18,7 @@ class CreateOffreTable extends Migration
             $table->bigInteger('propriete_id');
             $table->foreign('propriete_id')->references('id')->on('proprietes');
             $table->string('type');
+            $table->integer('etat');
             $table->timestamps();
         });
     }
