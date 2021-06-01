@@ -31,4 +31,5 @@ Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'inde
 Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
 Route::resource('user', 'App\Http\Controllers\UserController');
+Route::resource('propriete', 'App\Http\Controllers\ProprieteController');
 Route::post('update_avatar', [App\Http\Controllers\UserController::class, 'update_avatar'])->name('update_avatar');

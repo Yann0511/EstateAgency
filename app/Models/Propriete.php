@@ -13,4 +13,10 @@ class Propriete extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function images()
+    {
+        return $this->hasMany('App\Models\Image', 'propriete_id');
+    }
+
 }

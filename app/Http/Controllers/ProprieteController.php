@@ -4,18 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Repositories\ProprieteRepository;
 use App\Http\Requests\ProprieteRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ProprieteController extends Controller
 {
     protected $proprieteRepository;
-    protected $nbrPerPage = 4;
+    protected $nbrPerPage = 15;
 
     public function __construct(ProprieteRepository $proprieteRepository)
     {
-        $this->middleware('auth', ['except' => 'index']);
-        $this->middleware('admin', ['only' => 'destroy']);
-
+        $this->middleware('auth');
         $this->proprieteRepository = $proprieteRepository;
     }
     /**
@@ -25,10 +24,10 @@ class ProprieteController extends Controller
      */
     public function index()
     {
-        $propriete = $this->proprieteRepository->getPaginate($this->nbrPerPage);
-		$links = $propriete->setPath('')->render();
+        $proprietes = DB::table('proprietes')->groupBy('user_id')->Paginate($this->nbrPerPage);
+		$links = $proprietes->links('pagination::bootstrap-4');
 
-		return view('propriete.liste', compact('propriete', 'links'));
+		return view('dashboard.propriete.liste', compact('proprietes', 'links'));
     }
 
     /**
@@ -38,7 +37,7 @@ class ProprieteController extends Controller
      */
     public function create()
     {
-        return view('propriete.add');
+        return view('dashboard.propriete.add');
     }
 
     /**

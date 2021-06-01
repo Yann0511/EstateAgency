@@ -8,7 +8,7 @@ use App\Repositories\ProprieteRepository;
 class DashboardController extends Controller
 {
     protected $proprieteRepository;
-    protected $nbrPerPage = 5;
+    protected $nbrPerPage = 10;
 
     /**
      * Create a new controller instance.
@@ -28,8 +28,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $proprietes = $this->proprieteRepository->getpagination($this->nbrPerPage);
-        $links = $proprietes->setPath('')->render();
+        $proprietes = $this->proprieteRepository->getPagination($this->nbrPerPage);
+        $links = $proprietes->links('pagination::bootstrap-4');
 
         return view('dashboard.dashboard', compact('proprietes', 'links'));
     }

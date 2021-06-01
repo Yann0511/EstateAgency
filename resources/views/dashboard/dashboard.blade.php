@@ -107,8 +107,8 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h5 class="card-category">Statistique</h5>
-                <h4 class="card-title">Liste des propriétés</h4>
+                <h5 class="card-category">Administration</h5>
+                <h4 class="card-title">Property Management</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -117,7 +117,7 @@
                       <th>
                         Nom
                       </th>
-                      <th>
+                      
                       <th>
                         Prénom
                       </th>
@@ -125,10 +125,13 @@
                         Titre
                       </th>
                       <th>
-                        Adresse
+                        Voir
+                      </th>
+                      <th>
+                        Modifer
                       </th>
                       <th class="text-right">
-                        Caractéristiques
+                        Supprimer
                       </th>
                     </thead>
                     <tbody>
@@ -144,11 +147,21 @@
                         <td>
                           {{ $propriete->name }}
                         </td>
+                       <td>
+                            <a href="#">
+                              <i class="now-ui-icons users_single-02"></i>
+                            </a>
+                        </td>
                         <td>
-                          {{ $propriete->adresse }}
+                            <a href="#">
+                              <i class="now-ui-icons arrows-1_refresh-69"></i>
+                            </a>
                         </td>
                         <td class="text-right">
-                          {{ $propriete->caracteristique }}
+                              <i class="now-ui-icons ui-1_simple-remove"></i>
+                              {!! Form::open(['method'=>'DELETE', 'route'=>['propriete.destroy', $propriete->id]]) !!}
+                              {!! Form::submit('', ['class'=> 'now-ui-icons ui-1_simple-remove', 'onclick'=> 'return confirm(\'Vraiment supprimer cette propriété?\')']) !!}
+                              {!! Form::close() !!}
                         </td>
                       </tr>
                       @endforeach

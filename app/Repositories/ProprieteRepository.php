@@ -14,7 +14,7 @@ class ProprieteRepository extends ResourceRepository
 
 	public function getPagination($n)
 	{
-		return $this->model->orderBy('propriete.created_at', 'desc')->paginate($n);
+		return $this->model->paginate($n);
 	}
 
 }
