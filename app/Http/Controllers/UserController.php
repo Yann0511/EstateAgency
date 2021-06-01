@@ -9,6 +9,10 @@ use App\Repositories\UserRepository;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Support\Facades\DB;
+
 class UserController extends Controller
 {
 
@@ -23,7 +27,7 @@ class UserController extends Controller
 
 	public function index()
 	{
-		$users = $this->userRepository->getPaginate($this->nbrPerPage);
+		$users = DB::table('users')->orderBy('id','asc')->where([['role', '!=', 'Admin']])->Paginate($this->nbrPerPage);
 		$links = $users->links('pagination::bootstrap-4');
 
 		return view('dashboard.users.index', compact('users', 'links'));
@@ -34,10 +38,9 @@ class UserController extends Controller
 		return view('dashboard.users.create');
 	}
 
-	public function store(UserCreateRequest $request)
+	public function store(Request $request)
 	{
-		$this->setAdmin($request);
-
+		$this->validator($request->all());
 		$user = $this->userRepository->store($request->all());
 
 		return redirect('user')->withOk("L'utilisateur " . $user->name . " a été créé.");
@@ -57,8 +60,9 @@ class UserController extends Controller
 		return view('dashboard.users.edit',  compact('user'));
 	}
 
-	public function update(UserUpdateRequest $request, $id)
+	public function update(Request $request, $id)
 	{
+		$this->validator($request->all());
 
 		$this->userRepository->update($id, $request->all());
 		
@@ -72,4 +76,13 @@ class UserController extends Controller
 		return redirect()->back();
 	}
 
+	protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'role' => ['required', 'string', 'max:7'],
+            'surname' =>['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
+        ]);
+    }
 }

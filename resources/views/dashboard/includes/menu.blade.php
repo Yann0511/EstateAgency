@@ -26,7 +26,7 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="{{route('user.create')}}">
               <i class="now-ui-icons ui-1_simple-add"></i>  
               <p>Add User</p>
             </a>
