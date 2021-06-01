@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Auth;
+
+use League\CommonMark\Inline\Element\Image;
+
 class UserController extends Controller
 {
 
@@ -75,6 +79,27 @@ class UserController extends Controller
 
 		return redirect()->back();
 	}
+
+	public function update_avatar(Request $request)
+	{
+		$request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:6000',
+
+        ]);
+
+        $avatar = time().'.'.$request->avatar->getClientOriginalExtension(); 
+		$request->avatar->move(public_path('avatars'), $avatar);
+    	$folder = '/avatars/';
+		$filename = $folder . $avatar;
+
+    		$user = Auth::user();
+    		$user->photo = $filename;
+    		$user->save();
+
+        return back()
+            ->with('success','You have successfully upload image.');
+
+    }
 
 	protected function validator(array $data)
     {

@@ -164,6 +164,20 @@
                   <i class="fab fa-google-plus-g"></i>
                 </button>
               </div>
+               <form action="{{ route('update_avatar') }}" method="POST" role="form" enctype="multipart/form-data">
+                 @csrf
+                 <div class="form-group row">
+                    <label for="profile_image" class="col-md-4 col-form-label text-md-right">Profile Image</label>
+                        <div class="col-md-6">
+                            <input id="profile_image" type="file" class="form-control" name="avatar">
+                        </div>
+                  </div>
+                  <div class="form-group row mb-0 mt-5">
+                    <div class="col-md-8 offset-md-4">
+                      <button type="submit" class="btn btn-primary">Update Avatar</button>
+                    </div>
+                  </div>
+                </form>
             </div>
           </div>
         </div>
